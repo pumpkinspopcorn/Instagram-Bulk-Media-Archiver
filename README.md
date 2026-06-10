@@ -2,25 +2,152 @@
 
 ## Overview
 
-Instagram Bulk Media Archiver is a Python-based automation tool designed to process and archive large volumes of Instagram post and reel URLs efficiently.
+Instagram Bulk Media Archiver is a Python-based automation pipeline designed to process and archive large volumes of Instagram posts and reels efficiently.
 
-The project was developed to handle large-scale media collection workflows, supporting thousands of URLs while maintaining reliability through automated processing, error handling, retry mechanisms, and rate-limit awareness.
+The project was developed to automate the extraction, processing, and archival of Instagram content from exported account data, enabling large-scale media collection and storage with minimal manual intervention.
 
-This project demonstrates practical skills in Python automation, batch processing, file management, exception handling, and scalable content ingestion pipelines.
+The system supports batch processing, fault tolerance, progress tracking, error handling, and scalable media retrieval workflows.
+
+---
+
+## Problem Statement
+
+Instagram allows users to save posts and reels but does not provide a native solution for bulk archival of saved content.
+
+This project addresses that limitation by creating an automated workflow capable of processing thousands of saved Instagram URLs and downloading associated media into a structured local archive.
+
+---
+
+## Project Workflow
+
+### Step 1: Export Instagram Data
+
+User account data is exported through Instagram's data export functionality.
+
+The export contains JSON files describing saved posts and collections.
+
+Input Files:
+
+```text
+saved_posts.json
+saved_collections.json
+```
+
+---
+
+### Step 2: URL Extraction
+
+A custom Python script parses the exported JSON files and extracts Instagram URLs.
+
+Input:
+
+```text
+saved_posts.json
+saved_collections.json
+```
+
+Output:
+
+```text
+urls.txt
+```
+
+Example URL:
+
+```text
+https://www.instagram.com/reel/XXXXXXXX/
+https://www.instagram.com/p/YYYYYYYY/
+```
+
+---
+
+### Step 3: Bulk Media Processing
+
+The downloader reads URLs from urls.txt and performs:
+
+* URL validation
+* Shortcode extraction
+* Metadata retrieval
+* Media download
+* Error handling
+* Retry management
+
+Supported Content:
+
+* Reels
+* Images
+* Carousel Posts
+
+---
+
+### Step 4: Media Archival
+
+Downloaded content is automatically organized into a local archive directory.
+
+Output Folder:
+
+```text
+instagram_bulk/
+```
+
+Media Types:
+
+```text
+.mp4
+.jpg
+.jpeg
+```
+
+---
+
+### Step 5: Progress Tracking & Recovery
+
+The pipeline tracks:
+
+* Successfully processed URLs
+* Failed URLs
+* Download progress
+
+allowing interrupted jobs to resume without restarting the entire workflow.
+
+---
+
+## Architecture
+
+```text
+Instagram Export JSON
+        ↓
+JSON Parsing
+        ↓
+URL Extraction
+        ↓
+urls.txt
+        ↓
+Bulk Downloader
+        ↓
+Instagram Retrieval
+        ↓
+Local Media Archive
+        ↓
+Progress Tracking
+        ↓
+Error Handling & Recovery
+```
 
 ---
 
 ## Features
 
-* Bulk processing of Instagram post and reel URLs
-* Automated media download and archival
-* Support for videos, images, and carousel posts
-* Exception handling for failed requests
-* Configurable download delays to reduce rate-limiting
-* Large-scale batch execution
-* Organized file storage structure
-* Progress monitoring and logging
-* Fault-tolerant execution for long-running jobs
+* Bulk processing of Instagram URLs
+* Automated media archival
+* Support for reels, images, and carousel posts
+* Batch processing workflow
+* Exception handling
+* Retry logic
+* Rate-limit awareness
+* Progress monitoring
+* Fault-tolerant execution
+* Scalable large-volume processing
 
 ---
 
@@ -28,81 +155,74 @@ This project demonstrates practical skills in Python automation, batch processin
 
 * Python
 * Instaloader
+* JSON Processing
 * Regular Expressions (Regex)
 * File Handling
 * Exception Handling
-* Batch Processing
 * Automation Scripting
+* Batch Processing
 
 ---
 
-## Project Architecture
-
-1. Load URLs from a text file.
-2. Extract Instagram shortcode identifiers.
-3. Fetch post metadata.
-4. Download media content.
-5. Store files in a structured archive folder.
-6. Handle errors and continue execution.
-7. Apply configurable wait times between requests.
-
----
-
-## Workflow
+## Repository Structure
 
 ```text
-URLs.txt
-    ↓
-URL Processing
-    ↓
-Shortcode Extraction
-    ↓
-Instagram API Request
-    ↓
-Media Retrieval
-    ↓
-Local Storage
-    ↓
-Logging & Error Handling
+Instagram-Bulk-Media-Archiver/
+│
+├── README.md
+├── requirements.txt
+├── extract_urls.py
+├── downloader.py
+│
+├── sample_data/
+│   ├── sample_saved_posts.json
+│   └── sample_urls.txt
+│
+└── screenshots/
+    ├── workflow.png
+    ├── terminal_run.png
+    └── archive_folder.png
 ```
-
-## Performance
-
-### Test Run
-
-* Dataset Size: 13,000+ URLs
-* Content Types:
-
-  * Reels
-  * Images
-  * Carousel Posts
-* Automated Sequential Processing
-* Long Duration Batch Execution
-* Large-Scale Media Archival
 
 ---
 
 ## Installation
 
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Or:
+
 ```bash
 pip install instaloader
 ```
 
+---
+
 ## Usage
 
-Place all Instagram URLs inside:
+### Extract URLs
+
+```bash
+python extract_urls.py
+```
+
+Output:
 
 ```text
 urls.txt
 ```
 
-Run:
+### Download Media
 
 ```bash
-python download_all.py
+python downloader.py
 ```
 
-Downloaded media will be stored inside:
+Downloaded files will be stored in:
 
 ```text
 instagram_bulk/
@@ -110,41 +230,64 @@ instagram_bulk/
 
 ---
 
-## Example Input
+## Performance
 
-```text
-https://www.instagram.com/reel/XXXXXXXX/
-https://www.instagram.com/p/YYYYYYYY/
-https://www.instagram.com/reel/ZZZZZZZZ/
-```
+### Test Dataset
+
+* Dataset Size: 13,000+ Instagram URLs
+* Content Types:
+
+  * Reels
+  * Images
+  * Carousel Posts
+
+### Capabilities
+
+* Long-duration batch execution
+* Large-scale content archival
+* Automated media collection
+* Sequential processing with rate-limit mitigation
 
 ---
 
 ## Key Learnings
 
-This project demonstrates:
+This project demonstrates practical experience in:
 
-* Automation engineering
-* Python scripting
-* Large-scale file processing
-* Error handling and recovery
-* Data ingestion workflows
-* Batch processing strategies
-* Long-running task management
-* Rate-limit mitigation techniques
+* Python Automation
+* Data Collection Pipelines
+* JSON Processing
+* Workflow Automation
+* Large-Scale File Management
+* Error Handling & Recovery
+* Batch Processing
+* Automation Engineering
+* Data Ingestion Concepts
 
 ---
 
 ## Future Improvements
 
 * Automatic resume after interruption
-* Progress dashboard
-* Download statistics reporting
+* CSV reporting
+* Download analytics dashboard
 * Multi-threaded processing
-* CSV/JSON reporting
 * Advanced retry strategies
 * Cloud storage integration
 * Database-backed tracking system
+* Web dashboard for monitoring
+
+---
+
+## Author
+
+**Mohit Sharma**
+
+Associate Software Engineer – Advanced Analytics
+
+M.Sc. Business Intelligence & Analytics
+
+University of Westminster, London
 
 ---
 
