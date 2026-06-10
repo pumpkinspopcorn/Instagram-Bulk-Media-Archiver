@@ -177,11 +177,7 @@ Instagram-Bulk-Media-Archiver/
 ├── sample_data/
 │   ├── sample_saved_posts.json
 │   └── sample_urls.txt
-│
-└── screenshots/
-    ├── workflow.png
-    ├── terminal_run.png
-    └── archive_folder.png
+
 ```
 
 ---
