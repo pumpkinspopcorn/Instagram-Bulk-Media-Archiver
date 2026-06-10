@@ -1,0 +1,6 @@
+instagram_bulk/
+completed.txt
+failed.txt
+__pycache__/
+*.pyc
+.env
