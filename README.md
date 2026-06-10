@@ -230,7 +230,7 @@ instagram_bulk/
 
 ### Test Dataset
 
-* Dataset Size: 13,000+ Instagram URLs
+* Dataset Size: 10000+ Instagram URLs
 * Content Types:
 
   * Reels
@@ -274,19 +274,3 @@ This project demonstrates practical experience in:
 * Web dashboard for monitoring
 
 ---
-
-## Author
-
-**Mohit Sharma**
-
-Associate Software Engineer – Advanced Analytics
-
-M.Sc. Business Intelligence & Analytics
-
-University of Westminster, London
-
----
-
-## License
-
-This project is intended for educational, research, and automation learning purposes.
