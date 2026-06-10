@@ -175,8 +175,8 @@ Instagram-Bulk-Media-Archiver/
 ├── downloader.py
 │
 ├── sample_data/
-│   ├── sample_saved_posts.json
-│   └── sample_urls.txt
+    ├── sample_saved_posts.json
+    └── sample_urls.txt
 
 ```
 
